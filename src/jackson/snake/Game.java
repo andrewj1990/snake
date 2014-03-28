@@ -75,21 +75,30 @@ public class Game extends Canvas implements Runnable {
 	
 	public void run() {
 		
+		long lastTime = System.nanoTime();
+		final double ns = 1000000000.0 / 30.0;
+		double delta = 0;
+		
 		requestFocus();
 		key.keys[KeyEvent.VK_UP] = true;
-//		System.out.println(key.up);
-		System.setProperty("sun.awt.noerasebackground", "true");
 		while (running)	 {
 //			System.out.println(key.up);
-				
-			update();
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			while (delta >= 60) {
+				update();
+				delta--;
+			}
 //			System.out.println(key.up);
 			
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
+//			update();
+			
+//			try {
+//				Thread.sleep(50);
+//			} catch (InterruptedException e) {
+//				Thread.currentThread().interrupt();
+//			}
 			
 			render();
 			
@@ -170,7 +179,7 @@ public class Game extends Canvas implements Runnable {
 //			System.out.println(difficulty_counter);
 		}
 		
-		if (difficulty_counter > 50) {
+		if (difficulty_counter > 1000) {
 			random_wall = random.nextInt(width * (height - 1));
 			wall_coordinates.add(random_wall);
 			difficulty_counter = 0;
