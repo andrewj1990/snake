@@ -1,5 +1,5 @@
 package jackson.snake;
-// test
+
 import jackson.snake.input.Keyboard;
 
 import java.awt.Canvas;
@@ -77,18 +77,27 @@ public class Game extends Canvas implements Runnable {
 		
 		requestFocus();
 		key.keys[KeyEvent.VK_UP] = true;
-		System.out.println(key.up);
+//		System.out.println(key.up);
+		System.setProperty("sun.awt.noerasebackground", "true");
 		while (running)	 {
-			System.out.println(key.up);
+//			System.out.println(key.up);
 				
 			update();
 //			System.out.println(key.up);
-			render();
+			
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
+			
+			render();
+			
+//			try {
+//				Thread.sleep(50);
+//			} catch (InterruptedException e) {
+//				Thread.currentThread().interrupt();
+//			}
 		}
 	}
 	
@@ -114,6 +123,7 @@ public class Game extends Canvas implements Runnable {
 			gameOver = true;
 		}
 		
+		
 		for (int i = 0; i < snake_coordinates.size() - 1; i++) {
 			if (snake_location == snake_coordinates.get(i) && snake_location != food_location) {
 				gameOver = true;
@@ -136,7 +146,7 @@ public class Game extends Canvas implements Runnable {
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
-			createBufferStrategy(3);
+			createBufferStrategy(2);
 			return;
 		}
 		
@@ -205,7 +215,7 @@ public class Game extends Canvas implements Runnable {
 			g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 			g.drawString("GAME OVER", getWidth()/4, getHeight()/2);
 			g.drawString("Score: " + score, getWidth()/4 + 50, getHeight()/2 + 80);
-			g.drawString("Press Spacebar to Restart", getWidth()/4, getHeight()/2 + 150);
+			g.drawString("Press Spacebar to Restart", getWidth() / 4, getHeight() / 2 + 150);
 			g.dispose();
 			bs.show();
 			key.update();
