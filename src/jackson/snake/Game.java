@@ -76,7 +76,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		
 		long lastTime = System.nanoTime();
-		final double ns = 1000000000.0 / 30.0;
+		final double ns = 1000000000.0 / 25.0;
 		double delta = 0;
 		
 		requestFocus();
@@ -131,6 +131,27 @@ public class Game extends Canvas implements Runnable {
 			y = height - 1;
 			gameOver = true;
 		}
+		snake_location = x + y * width;		
+		// create the food
+		if (food_flag) {
+			food = random.nextInt(width * height);
+			food_flag = false;
+//			snake_location_tail = (x - 1) + (y - 1) * width;
+			snake_coordinates.add(snake_location);
+			difficulty_counter = 0;
+			score++;
+		} else {
+			snake_coordinates.add(snake_location);
+			snake_coordinates.remove(0);
+			difficulty_counter++;
+//			System.out.println(difficulty_counter);
+		}
+		
+		if (difficulty_counter > 10) {
+			random_wall = random.nextInt(width * (height - 1));
+			wall_coordinates.add(random_wall);
+			difficulty_counter = 0;
+		}
 		
 		
 		for (int i = 0; i < snake_coordinates.size() - 1; i++) {
@@ -163,27 +184,27 @@ public class Game extends Canvas implements Runnable {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
 		}
-		snake_location = x + y * width;		
-		// create the food
-		if (food_flag) {
-			food = random.nextInt(width * height);
-			food_flag = false;
-//			snake_location_tail = (x - 1) + (y - 1) * width;
-			snake_coordinates.add(snake_location);
-			difficulty_counter = 0;
-			score++;
-		} else {
-			snake_coordinates.add(snake_location);
-			snake_coordinates.remove(0);
-			difficulty_counter++;
-//			System.out.println(difficulty_counter);
-		}
-		
-		if (difficulty_counter > 1000) {
-			random_wall = random.nextInt(width * (height - 1));
-			wall_coordinates.add(random_wall);
-			difficulty_counter = 0;
-		}
+//		snake_location = x + y * width;		
+//		// create the food
+//		if (food_flag) {
+//			food = random.nextInt(width * height);
+//			food_flag = false;
+////			snake_location_tail = (x - 1) + (y - 1) * width;
+//			snake_coordinates.add(snake_location);
+//			difficulty_counter = 0;
+//			score++;
+//		} else {
+//			snake_coordinates.add(snake_location);
+//			snake_coordinates.remove(0);
+//			difficulty_counter++;
+////			System.out.println(difficulty_counter);
+//		}
+//		
+//		if (difficulty_counter > 1000) {
+//			random_wall = random.nextInt(width * (height - 1));
+//			wall_coordinates.add(random_wall);
+//			difficulty_counter = 0;
+//		}
 //		snake_coordinates.add(10);
 //		System.out.println(snake_coordinates.size());
 //		snake_coordinates.remove(0);
