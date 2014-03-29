@@ -24,6 +24,7 @@ public class Keyboard implements KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() != KeyEvent.VK_DOWN && e.getKeyCode() != KeyEvent.VK_UP && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && e.getKeyCode() != KeyEvent.VK_SPACE) return; 
 		if (up && e.getKeyCode() == KeyEvent.VK_DOWN) return;
 		if (down && e.getKeyCode() == KeyEvent.VK_UP) return;
 		if (right && e.getKeyCode() == KeyEvent.VK_LEFT) return;
