@@ -34,6 +34,7 @@ public class Game extends Canvas implements Runnable {
 	private int difficulty_meter = initial_difficulty_meter;
 	private int random_wall = 0;
 	private int power_up;
+	private int power_up_number = 0;
 	private int clear_radius = 10;
 	private boolean food_flag = true;
 	private boolean running = false;
@@ -165,11 +166,13 @@ public class Game extends Canvas implements Runnable {
 			wall_coordinates.add(random_wall);
 			difficulty_counter = 0;
 			if (difficulty_meter > 30) difficulty_meter = difficulty_meter * 3 / 4;
+			power_up_number++;
 		}
 		
-		if (wall_coordinates.size() > 10) {
+		if (power_up_number > 1) {
 			power_up = random.nextInt(width * height);
 			power_up_coordinates.add(power_up);
+			power_up_number = 0;
 		}
 		
 		for (int i = 0; i < snake_coordinates.size() - 1; i++) {
@@ -188,9 +191,13 @@ public class Game extends Canvas implements Runnable {
 		for (int i = 0; i < power_up_coordinates.size(); i++) {
 			if (snake_location == power_up_coordinates.get(i)) {
 				// clear walls around power_up_coordinates.get(i)
-				
-				
-				
+				int q;
+				System.out.println(power_up_coordinates.get(i));
+				for (int j = 0; j < clear_radius; j++) {
+					q = power_up_coordinates.get(i) + j;
+					System.out.println(q);
+
+				}
 				power_up_coordinates.remove(i);
 			}
 		}
