@@ -169,7 +169,7 @@ public class Game extends Canvas implements Runnable {
 			power_up_number++;
 		}
 		
-		if (power_up_number > 1) {
+		if (power_up_number > 10) {
 			power_up = random.nextInt(width * height);
 			power_up_coordinates.add(power_up);
 			power_up_number = 0;
